@@ -1,12 +1,8 @@
 package handlers
 
 import (
-	"fmt"
 	"io"
 	"net/http"
-	"os"
-	"path/filepath"
-	"time"
 
 	"github.com/Yandex-Practicum/go1fl-sprint6-final-tpl/internal/service"
 )
@@ -29,38 +25,24 @@ func UploadHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	file, handler, err := r.FormFile("file")
+	file, _, err := r.FormFile("myFile")
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "invalid file upload", http.StatusBadRequest)
 		return
 	}
 	defer file.Close()
 
 	fileBytes, err := io.ReadAll(file)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "failed to read file", http.StatusBadRequest)
 		return
 	}
 
 	converted, err := service.DetectAndConvert(string(fileBytes))
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "failed to convert", http.StatusUnprocessableEntity)
 		return
 	}
 
-	filename := time.Now().UTC().String() + filepath.Ext(handler.Filename)
-	outFile, err := os.Create(filename)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer outFile.Close()
-
-	_, err = outFile.WriteString(converted)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	fmt.Fprint(w, converted)
+	w.Write([]byte(converted))
 }
