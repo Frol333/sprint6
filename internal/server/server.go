@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Yandex-Practicum/go1fl-sprint6-final-tp1/internal/handlers"
+	"github.com/Yandex-Practicum/go1fl-sprint6-final-tpl/internal/handlers"
 )
 
 // Server структура, содержащая логгер и http-сервер.

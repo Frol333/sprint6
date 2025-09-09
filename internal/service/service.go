@@ -3,7 +3,7 @@ package service
 import (
 	"strings"
 
-	"github.com/Yandex-Practicum/go1fl-sprint6-final-tp1/pkg/morse"
+	"github.com/Yandex-Practicum/go1fl-sprint6-final-tpl/pkg/morse"
 )
 
 // DetectAndConvert определяет, является ли входная строка текстом или кодом Морзе,

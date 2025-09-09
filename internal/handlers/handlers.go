@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Yandex-Practicum/go1fl-sprint6-final/internal/service"
+	"github.com/Yandex-Practicum/go1fl-sprint6-final-tpl/internal/service"
 )
 
 // IndexHandler обрабатывает запросы к корневому эндпоинту и возвращает HTML из файла index.html.
